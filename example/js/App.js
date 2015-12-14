@@ -20,34 +20,43 @@ class App extends React.Component {
     };
   }
 
-  handleValueChange(component, value) {
+  handleValueChange(event, value) {
+    console.log(event);
     this.setState({
       value: value || 0,
     });
   }
 
-  handleValue2Change(component, value) {
+  handleValue2Change(event, value) {
+    console.log(event);
     this.setState({
       value2: value || 0,
     });
   }
 
-  handleValue3Change(component, value) {
+  handleValue3Change(event, value) {
+    console.log(event);
     this.setState({
       value3: value || 0,
     });
   }
 
-  handleValue4Change(component, values) {
+  handleValue4Change(event, values) {
+    console.log(event);
     this.setState({
       value4: values,
     });
   }
 
-  handleValue5Change(component, values) {
+  handleValue5Change(event, values) {
+    console.log(event);
     this.setState({
       value5: values,
     });
+  }
+
+  handleInput(event) {
+    console.log(event);
   }
 
   render() {
@@ -59,6 +68,8 @@ class App extends React.Component {
 
     return (
       <form className="form">
+        <input type="text" onInput={this.handleInput.bind(this)} ref="input" />
+
         <InputRange
           maxValue={20}
           minValue={0}

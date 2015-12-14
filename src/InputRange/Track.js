@@ -46,7 +46,7 @@ class Track extends React.Component {
       y: 0,
     };
 
-    this.props.onTrackMouseDown(this, position);
+    this.props.onTrackMouseDown(this, position, event);
   }
 
   handleTouchStart(event) {

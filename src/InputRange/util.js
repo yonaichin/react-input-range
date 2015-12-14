@@ -94,12 +94,20 @@ function autobind(methodNames, instance) {
   });
 }
 
+function createComponentEvent(event, component) {
+  return {
+    syntheticEvent: event,
+    target: component,
+  };
+}
+
 // Module
 const util = {
   arrayOf,
   autobind,
   captialize,
   clamp,
+  createComponentEvent,
   distanceTo,
   extend,
   isEmpty,

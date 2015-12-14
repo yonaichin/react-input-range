@@ -4,7 +4,7 @@ import Track from './Track';
 import Label from './Label';
 import defaultClassNames from './defaultClassNames';
 import valueTransformer from './valueTransformer';
-import { autobind, captialize, distanceTo, isObject, length } from './util';
+import { autobind, captialize, createComponentEvent, distanceTo, isObject, length } from './util';
 import { maxMinValuePropType } from './propTypes';
 
 // Constants
@@ -172,16 +172,16 @@ class InputRange extends React.Component {
   }
 
   // Methods
-  updatePosition(key, position) {
+  updatePosition(key, position, event) {
     const values = valueTransformer.valuesFromProps(this);
     const positions = valueTransformer.positionsFromValues(this, values);
 
     positions[key] = position;
 
-    this.updatePositions(positions);
+    this.updatePositions(positions, event);
   }
 
-  updatePositions(positions) {
+  updatePositions(positions, event) {
     const values = {
       min: valueTransformer.valueFromPosition(this, positions.min),
       max: valueTransformer.valueFromPosition(this, positions.max),
@@ -192,41 +192,43 @@ class InputRange extends React.Component {
       max: valueTransformer.stepValueFromValue(this, values.max),
     };
 
-    this.updateValues(transformedValues);
+    this.updateValues(transformedValues, event);
   }
 
-  updateValue(key, value) {
+  updateValue(key, value, event) {
     const values = valueTransformer.valuesFromProps(this);
 
     values[key] = value;
 
-    this.updateValues(values);
+    this.updateValues(values, event);
   }
 
-  updateValues(values) {
+  updateValues(values, event) {
     if (!shouldUpdate(this, values)) {
       return;
     }
 
+    const componetEvent = createComponentEvent(event, this);
+
     if (this.isMultiValue) {
-      this.props.onChange(this, values);
+      this.props.onChange(componetEvent, values);
     } else {
-      this.props.onChange(this, values.max);
+      this.props.onChange(componetEvent, values.max);
     }
   }
 
-  incrementValue(key) {
+  incrementValue(key, event) {
     const values = valueTransformer.valuesFromProps(this);
     const value = values[key] + this.props.step;
 
-    this.updateValue(key, value);
+    this.updateValue(key, value, event);
   }
 
-  decrementValue(key) {
+  decrementValue(key, event) {
     const values = valueTransformer.valuesFromProps(this);
     const value = values[key] - this.props.step;
 
-    this.updateValue(key, value);
+    this.updateValue(key, value, event);
   }
 
   // Handlers
@@ -238,7 +240,7 @@ class InputRange extends React.Component {
     const key = getKeyFromSlider(this, slider);
     const position = valueTransformer.positionFromEvent(this, event);
 
-    this.updatePosition(key, position);
+    this.updatePosition(key, position, event);
   }
 
   handleSliderKeyDown(slider, event) {
@@ -250,11 +252,11 @@ class InputRange extends React.Component {
 
     switch (event.keyCode) {
     case KeyCode.LEFT_ARROW:
-      this.decrementValue(key);
+      this.decrementValue(key, event);
       break;
 
     case KeyCode.RIGHT_ARROW:
-      this.incrementValue(key);
+      this.incrementValue(key, event);
       break;
 
     default:
@@ -262,14 +264,14 @@ class InputRange extends React.Component {
     }
   }
 
-  handleTrackMouseDown(track, position) {
+  handleTrackMouseDown(track, position, event) {
     if (this.props.disabled) {
       return;
     }
 
     const key = getKeyByPosition(this, position);
 
-    this.updatePosition(key, position);
+    this.updatePosition(key, position, event);
   }
 
   // Render

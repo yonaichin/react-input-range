@@ -39,7 +39,7 @@ describe('InputRange', () => {
     });
   });
 
-  describe('updateValue', () => {
+  xdescribe('updateValue', () => {
     let newValue;
 
     beforeEach(() => {
@@ -62,7 +62,7 @@ describe('InputRange', () => {
     });
   });
 
-  describe('updateValues', () => {
+  xdescribe('updateValues', () => {
     let newValues;
 
     beforeEach(() => {
@@ -95,7 +95,7 @@ describe('InputRange', () => {
     });
   });
 
-  describe('updatePositions', () => {
+  xdescribe('updatePositions', () => {
     let positions;
 
     beforeEach(() => {
@@ -134,7 +134,7 @@ describe('InputRange', () => {
     });
   });
 
-  describe('updatePosition', () => {
+  xdescribe('updatePosition', () => {
     beforeEach(() => {
       spyOn(inputRange, 'updatePositions');
     });
@@ -154,7 +154,7 @@ describe('InputRange', () => {
     });
   });
 
-  describe('incrementValue', () => {
+  xdescribe('incrementValue', () => {
     beforeEach(() => {
       spyOn(inputRange, 'updateValue');
     });
@@ -166,7 +166,7 @@ describe('InputRange', () => {
     });
   });
 
-  describe('decrementValue', () => {
+  xdescribe('decrementValue', () => {
     beforeEach(() => {
       spyOn(inputRange, 'updateValue');
     });
@@ -178,7 +178,7 @@ describe('InputRange', () => {
     });
   });
 
-  describe('handleSliderMouseMove', () => {
+  xdescribe('handleSliderMouseMove', () => {
     let slider;
     let event;
 
@@ -207,7 +207,7 @@ describe('InputRange', () => {
     });
   });
 
-  describe('handleSliderKeyDown', () => {
+  xdescribe('handleSliderKeyDown', () => {
     let slider;
     let event;
 
@@ -262,7 +262,7 @@ describe('InputRange', () => {
     });
   });
 
-  describe('handleTrackMouseDown', () => {
+  xdescribe('handleTrackMouseDown', () => {
     let track;
     let position;
 
